@@ -25,12 +25,24 @@ void pushAtEnd(node* &end , string b){
     end = end->link;
 }
 //function for inserting node at desired position 
-void pushatposition(node* &head , int position , string p){
+void pushatposition( node* &end , node* &head , int position , string p){
     node* temp = head;
+    //if position is first 
+    if(position==1){
+        pushAtHead(head , p);
+        return ;
+    }
+    
     int count = 1;
     while(count<position-1){
         temp = temp->link;
         count++;
+        
+    }
+    //if position is greater than nodes 
+    if(temp->link==NULL){
+        pushAtEnd(end , p);
+        return ;
     }
     
     node* newPositionNode = new node(p);
@@ -54,19 +66,14 @@ int main(){
     
     node* head = obj;
     node* end = obj;
-   
   
-    
-   
-    
-   
      pushAtHead(head , "banana");
     pushAtHead(head , "Apple");
     
     pushAtEnd ( end , "secondLast");
      pushAtEnd ( end , "last");
   
-     pushatposition(head , 3 , "position wala ");
+     pushatposition( end , head , 6, "position wala ");
     print(head);  
     
     
