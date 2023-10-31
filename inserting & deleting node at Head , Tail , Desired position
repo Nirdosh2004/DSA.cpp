@@ -50,12 +50,33 @@ void pushatposition( node* &end , node* &head , int position , string p){
     temp->link=  newPositionNode;
 }
 
+void deleteNode(node* &head , int pos){
+   
+    if(pos==1){
+         node* temp = head;
+        head = head->link;
+        free(temp);
+    }
+    else{
+        node* current = head ;
+         node* previous = NULL ;
+         int count = 1;
+         while(count<=pos-1){
+             previous = current ;
+             current = current->link;
+             count++;
+         }
+         previous ->link = current->link;
+         free(current);
+    }
+    
+}
 
 //for printing output
 void print(node* &head){
     node* temp = head;
     while(temp!=NULL){
-        cout<<temp->data<<" ";
+        cout<<temp->data<<"|     |";
         temp = temp->link;
     }
 }
@@ -74,6 +95,9 @@ int main(){
      pushAtEnd ( end , "last");
   
      pushatposition( end , head , 6, "position wala ");
+    print(head); 
+    cout<<endl;
+    deleteNode(head , 6) ;
     print(head);  
     
     
