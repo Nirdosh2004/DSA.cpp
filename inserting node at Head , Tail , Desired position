@@ -1,0 +1,74 @@
+//inserting node at Head , Tail , Desired position in Linked List in C++ 
+
+#include<iostream>
+using namespace std;
+
+class node{
+    public:
+    string data;
+    node* link;
+    node(string data){
+        this->data = data;
+        this->link = NULL;
+    }
+};
+//for inserting node at head 
+void pushAtHead(node* &head , string a){
+    node* temp = new node(a);
+    temp->link = head ;
+    head = temp;
+}
+//function for inseting last node 
+void pushAtEnd(node* &end , string b){
+    node* temp = new node(b);
+    end->link = temp;
+    end = end->link;
+}
+//function for inserting node at desired position 
+void pushatposition(node* &head , int position , string p){
+    node* temp = head;
+    int count = 1;
+    while(count<position-1){
+        temp = temp->link;
+        count++;
+    }
+    
+    node* newPositionNode = new node(p);
+    newPositionNode ->link = temp->link;
+    temp->link=  newPositionNode;
+}
+
+
+//for printing output
+void print(node* &head){
+    node* temp = head;
+    while(temp!=NULL){
+        cout<<temp->data<<" ";
+        temp = temp->link;
+    }
+}
+
+int main(){
+    
+    node *obj = new node("object");
+    
+    node* head = obj;
+    node* end = obj;
+   
+  
+    
+   
+    
+   
+     pushAtHead(head , "banana");
+    pushAtHead(head , "Apple");
+    
+    pushAtEnd ( end , "secondLast");
+     pushAtEnd ( end , "last");
+  
+     pushatposition(head , 3 , "position wala ");
+    print(head);  
+    
+    
+    return 0;
+}
