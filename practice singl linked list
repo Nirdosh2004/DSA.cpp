@@ -1,0 +1,95 @@
+//singly linked list 
+
+#include<iostream>
+using namespace std;
+
+class node{
+    public:
+    string data;
+    node* next;
+    node(string d){
+        this->data = d;
+        this -> next = NULL;
+    }
+};
+
+void insertAtHead(node* &head , string d){
+    node* temp = new node(d);
+    temp->next = head;
+    head = temp;
+}
+
+void print(node* &head){
+    node*  temp = head;
+    while(temp!=NULL){
+        cout<<temp->data<< "|      ";
+        temp = temp->next;
+    }
+}
+
+ inline void insertAtTail(node* &tail, string a){
+    node* temp = new node(a);
+    tail->next = temp;
+    tail = temp;
+}
+
+inline void insertAtDesiredPositin(node* &head , node* &tail , int position , string p ){
+    if(position==1){
+        insertAtHead(head,p);
+        return ;
+    }
+    int count = 1;
+    node* temp = head;
+    while(count!=position-1){
+        count++;
+        temp = temp->next;
+    }
+    if(temp->next==NULL){
+        insertAtTail(tail , p);
+        return ;
+    }
+    node* temp2 = new node(p);
+    temp2->next = temp->next;
+    temp->next = temp2;
+}
+
+inline void deleteatDesiredPosition(node* &head , int position){
+    if(position==1){
+        node* temp = head;
+        head = head->next;
+        free(temp);
+    }
+    node* current = head ;
+    node* previous = NULL;
+    int count = 1;
+    while(count<=position-1){
+        previous = current;
+        current = current -> next ;
+        count++;
+    }
+    previous->next = current->next;
+    free(current);
+}
+
+int main(){
+    
+  node* object = new node("at object")  ;
+  
+  node* head = object;
+  node* tail = object;
+  
+  insertAtHead(head, "at head");
+ print(head);
+ cout<<endl;
+    insertAtTail(tail , "At tail");
+    print(head);
+    cout<<"\n";
+   insertAtDesiredPositin(head , tail , 2 , "At desired position ");
+    print(head);
+    cout<<endl;
+    deleteatDesiredPosition(head , 3);
+    print(head);
+    
+    
+    return 0;
+}
