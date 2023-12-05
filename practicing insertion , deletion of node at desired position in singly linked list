@@ -1,0 +1,96 @@
+//singly linked list -> insertion ,deletion of nodes at desired position ; 
+
+#include<iostream>
+using namespace std;
+
+class node{
+    public:
+    string data;
+    node* next;
+    node(string d){
+        this -> data = d;
+        this -> next = NULL;
+    }
+};
+
+inline void insertAtHead(node* &head , string y){
+    node* temp = new node(y);
+    temp->next = head ;
+    head = temp;
+}
+
+inline void print(node* &head){
+    node* temp = head ;
+    while(temp != NULL){
+        cout<<temp -> data <<"|      ";
+        temp = temp -> next;
+    }
+}
+
+
+
+inline void insertAtTail(node* &tail , string p){
+    node* temp =  new node(p);
+    tail -> next = temp;
+    tail = temp;
+}
+inline void insertAtDesiredPosition(node* &head , node* &tail , int position , string a){
+    if(position == 1){
+        insertAtHead(head , a);
+        return ;
+    }
+    int count = 1;
+    node* temp = head ;
+    while(count < position - 1){
+        count++;
+        temp = temp -> next;
+    }
+    if(temp -> next == NULL){
+        insertAtTail(tail , a);
+        return ;
+    }
+    node* temp2 = new node(a);
+    temp2 -> next = temp -> next;
+    temp -> next = temp2;
+}
+
+inline void deleteAtDesiredPosition(node* &head , int position){
+    if(position == 1 ){
+        node* temp = head ;
+        head = head -> next ;
+        free(temp);
+    }
+    node* current = head ;
+    node* previous =  NULL;
+    int count = 1;
+    while(count <= position-1){
+        previous   = current ;
+        current  = current -> next ;
+        count++;
+    }
+    previous -> next = current -> next ;
+    free(current);
+}
+
+int main(){
+  
+  node* object = new node("At object")  ;
+    
+    node* head = object;
+    node* tail = object;
+    
+    insertAtHead(head , "At Head ");
+    print(head);
+    cout<<"\n";
+    insertAtTail(tail , "At Tail ");
+    print(head);
+    cout<<endl;
+    insertAtDesiredPosition(head , tail , 2 , "At Desired Position ");
+    print(head);
+    cout<<endl;
+    deleteAtDesiredPosition(head , 3);
+     print(head);
+    cout<<endl;
+    
+    return 0;
+}
