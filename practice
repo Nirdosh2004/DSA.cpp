@@ -1,0 +1,90 @@
+//creating doubly linked list 
+
+#include<iostream>
+using namespace std;
+
+class node{
+    public:
+    string data;
+    node* next ;
+    node* previous;
+    node(string d){
+        this -> data = d;
+        this -> next  = NULL ;
+        this -> previous = NULL;
+    }
+};
+
+inline void insertAtHead(node* &head , string a){
+    node* temp = new node(a);
+    temp -> next = head ;
+    head -> previous = temp;
+    head = temp;
+}
+
+inline void insertAtTail(node* &tail , string p){
+    node* temp = new node(p);
+    tail -> next = temp;
+    temp -> previous = tail;
+    tail = temp;
+}
+
+inline void insertatdesiredPosition(node* &head , node* &tail , int position , string a){
+    if(position == 1){
+        insertAtHead(head ,a);
+        return ;
+    }
+    int count= 1;
+    node* temp  =head ;
+    while(count<position-1){
+        count++;
+        temp =  temp -> next;
+    }
+    if(temp -> next == NULL){
+        insertAtTail(tail , a);
+        return ;
+    }
+    node* temp2 = new node(a);
+    temp2 -> next = temp -> next;
+    temp-> next -> previous  = temp2;
+    temp -> next = temp2;
+}
+
+inline int getlength(node* &head , node* &tail){
+    node* temp = head ;
+    int count = 0;
+    while(temp != NULL){
+        count++;
+        temp = temp-> next;
+    }
+    return count;
+}
+
+inline void print(node* &head){
+    node* temp  = head ;
+    while(temp != NULL){
+        cout<<temp -> data <<"|      ";
+        temp = temp -> next;
+    }
+}
+
+int main(){
+  
+  node* kushwaha = new node("Nirdosh Kushwaha")  ;
+  
+  node* head = kushwaha ;
+  node* tail = kushwaha ; 
+  
+  insertAtHead(head , "At head ");
+  print(head);
+    cout<<endl;
+    insertAtTail(tail , "At tail");
+     print(head);
+    cout<<endl;
+    insertatdesiredPosition(head, tail , 2 , "At position");
+     print(head);
+    cout<<endl;
+   int a =  getlength(head , tail); 
+   cout<<a;
+    return 0;
+}
