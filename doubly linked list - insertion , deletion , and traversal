@@ -1,0 +1,105 @@
+//doubly linked list - insertion , deletion , and traversal 
+
+#include<iostream>
+using namespace std;
+
+class node{
+    public:
+    string data;
+    node* next ;
+    node* previous ;
+    node(string d){
+        this -> data = d;
+        this -> next = NULL;
+        this -> previous = NULL;
+    }
+};
+
+inline void insertAtHead(node* &head , string d){
+    node* temp = new node(d);
+    temp -> next = head ;
+    head -> previous = temp;
+    head = temp ;
+}
+
+inline void insertAtTail( node* &tail , string d){
+    node* temp = new node(d);
+    tail -> next = temp;
+    temp ->  previous = tail ;
+    tail = temp;
+}
+
+inline void insertAtPosition(node* &head , node* &tail , int position , string data){
+    if( position == 1){
+        insertAtHead(head , data);
+        return ;
+    }
+    int count = 1;
+    node* temp = head ;
+    
+    while(count < position - 1){
+        count++;
+        temp = temp -> next;
+    }
+    if(temp -> next == NULL){
+        insertAtTail(tail , data);
+        return ;
+    }
+    node* temp2 = new node(data);
+    temp2 -> next = temp -> next;
+    temp -> next -> previous = temp2;
+    temp -> next = temp2;
+}
+
+inline void deleteAtPosition(node* &head , int position){
+    if( position == 1){
+        node* temp = head;
+        head = head -> next ;
+        head -> previous = NULL;
+        free(temp);
+    }
+    int count = 1;
+    node* temp = head ;
+    node* previous = NULL;
+    while(count <= position - 1){
+        previous = temp;
+        count++;
+        temp = temp -> next;
+    }
+    previous -> next = temp -> next;
+    free(temp);
+}
+
+inline void print(node* &head){
+    node* temp = head ;
+    while(temp != NULL){
+        cout<<temp -> data <<"    ";
+        temp = temp -> next;
+    }
+}
+
+int main(){
+    node* obj = new node("object");
+    node* head = obj;
+    node* tail = obj;
+    
+    insertAtHead(head , "At Head ");
+    print(head);
+    cout<<endl;
+    insertAtTail(tail , "AtTail");
+     print(head);
+    cout<<endl;
+    insertAtPosition(head, tail , 3 , "At position");
+     print(head);
+    cout<<endl;
+    deleteAtPosition(head , 2);
+     print(head);
+    cout<<endl;
+    
+    
+    return 0;
+}
+
+
+
+
