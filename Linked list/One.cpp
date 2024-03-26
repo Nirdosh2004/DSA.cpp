@@ -18,7 +18,7 @@ int main(){
     node* y = new node(arr[2] , nullptr);
     node* x = new node(arr[0] , nullptr);
     cout<<x<<endl;
-    cout<<y;
+    cout<<y->data;
     
     
     return 0;
