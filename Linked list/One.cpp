@@ -6,7 +6,7 @@ class node{
     public:
     int data;
     node* next;
-    public:
+    public:   
     node( int data1 , node* next1){
         data = data1;
         next = next1;
