@@ -8,7 +8,7 @@ class node{
     string data;
     node* next;
     node(string d){
-        this -> data = d;
+        this -> data = d;  
         this -> next = NULL;
     }
 };
